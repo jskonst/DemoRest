@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><layout title="" view="view">
   <AnchorsPane background="#ffffff" cursor="0" name="view" prefHeight="148px" prefWidth="348px"/>
   <Button cursor="0" name="button" parent="view" prefHeight="30px" prefWidth="100px" text="button">
-    <AnchorsPaneConstraints height="30px" left="220px" top="20px" width="100px"/>
+    <AnchorsPaneConstraints bottom="8px" height="30px" right="8px" width="100px"/>
   </Button>
-  <FormattedField name="formattedField" parent="view" prefHeight="27px" prefWidth="200px" text="formattedField">
-    <AnchorsPaneConstraints height="27px" left="10px" top="20px" width="200px"/>
+  <FormattedField cursor="0" format="" name="ffEmail" parent="view" prefHeight="27px" prefWidth="200px">
+    <AnchorsPaneConstraints height="27px" left="110px" top="20px" width="200px"/>
   </FormattedField>
+  <Label cursor="0" name="label" parent="view" prefHeight="30px" prefWidth="90px" text="E-mail">
+    <AnchorsPaneConstraints height="30px" left="10px" top="20px" width="90px"/>
+  </Label>
+  <Button cursor="0" name="btnSubmit" parent="view" prefHeight="30px" prefWidth="100px" text="Submit">
+    <AnchorsPaneConstraints height="30px" right="8px" top="70px" width="100px"/>
+  </Button>
 </layout>
