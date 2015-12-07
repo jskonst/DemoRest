@@ -1,3 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<datamodel>
+<?xml version="1.0" encoding="UTF-8"?><datamodel>
+  <entity Name="qUserByEMail" Title="" entityHeight="200" entityIconified="false" entityId="144952172163846" entityLocationX="245" entityLocationY="44" entityWidth="150" queryId="qUserByEMail" tableName="" tableSchemaName=""/>
+  <entity Name="qUsers" Title="" entityHeight="200" entityIconified="false" entityId="144952172344149" entityLocationX="253" entityLocationY="261" entityWidth="150" queryId="qUsers" tableName="" tableSchemaName=""/>
 </datamodel>
