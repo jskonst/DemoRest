@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><layout title="" view="view">
+  <AnchorsPane background="#ffffff" cursor="0" name="view" prefHeight="148px" prefWidth="348px"/>
+  <Button cursor="0" name="button" parent="view" prefHeight="30px" prefWidth="100px" text="button">
+    <AnchorsPaneConstraints height="30px" left="220px" top="20px" width="100px"/>
+  </Button>
+  <FormattedField name="formattedField" parent="view" prefHeight="27px" prefWidth="200px" text="formattedField">
+    <AnchorsPaneConstraints height="27px" left="10px" top="20px" width="200px"/>
+  </FormattedField>
+</layout>
