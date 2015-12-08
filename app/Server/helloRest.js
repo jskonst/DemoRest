@@ -14,12 +14,18 @@ define(['orm'], function (Orm, ModuleName) {
          * @get /customers
          * @returns {RESTTest.customers}
          */
-        this.getCustomers = function (aCustomer) {
-            P.Logger.info(aCustomer);
-            if (aCustomer)
-                return customers[aCustomer];
-            else
-                return customers;
+        this.getCustomers = function (aUser) {
+//            P.Logger.info(aCustomer);
+//            if (aCustomer)
+//                return customers[aCustomer];
+//            else
+//                return customers;
+            if (aUser){
+                model.qUserByEMail.params.email = aUser;
+                model.requery(function(){
+                    P.Logger.info(model.qUserByEMail);
+                });
+            }
         };
 
         /**
@@ -30,22 +36,25 @@ define(['orm'], function (Orm, ModuleName) {
             P.Logger.info(param);
             var http = new P.HttpContext();
             var custNo = 'cust-' + P.ID.generate();
-            customers[custNo] = JSON.parse(http.request.body);
+//            customers[custNo] = JSON.parse(http.request.body);
+            var user = JSON.parse(http.request.body);
+            P.Logger.info(user);
+            P.Logger.info(user.email);
             return custNo;
         };
 
-        /**
-         * @delete /customers
-         * @returns {undefined}
-         */
-        this.deleteCustomer = function (aCustomer) {
-            if (aCustomer) {
-                var deleted = customers[aCustomer];
-                delete customers[aCustomer];
-            } else {
-                customers = {};
-            }
-        };
+//        /**
+//         * @delete /customers
+//         * @returns {undefined}
+//         */
+//        this.deleteCustomer = function (aCustomer) {
+//            if (aCustomer) {
+//                var deleted = customers[aCustomer];
+//                delete customers[aCustomer];
+//            } else {
+//                customers = {};
+//            }
+//        };
 
 
     };

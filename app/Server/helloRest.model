@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?><datamodel>
-  <entity Name="qUserByEMail" Title="" entityHeight="200" entityIconified="false" entityId="144952172163846" entityLocationX="245" entityLocationY="44" entityWidth="150" queryId="qUserByEMail" tableName="" tableSchemaName=""/>
-  <entity Name="qUsers" Title="" entityHeight="200" entityIconified="false" entityId="144952172344149" entityLocationX="253" entityLocationY="261" entityWidth="150" queryId="qUsers" tableName="" tableSchemaName=""/>
+  <entity Name="qUserByEMail" Title="" entityHeight="200" entityIconified="false" entityId="144961177572872" entityLocationX="367" entityLocationY="121" entityWidth="150" queryId="qUserByEMail" tableName="" tableSchemaName=""/>
+  <entity Name="qUsers" Title="" entityHeight="200" entityIconified="false" entityId="144961177747300" entityLocationX="571" entityLocationY="137" entityWidth="150" queryId="qUsers" tableName="" tableSchemaName=""/>
 </datamodel>
