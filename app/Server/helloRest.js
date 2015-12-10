@@ -14,18 +14,18 @@ define(['orm'], function (Orm, ModuleName) {
          * @get /customers
          * @returns {RESTTest.customers}
          */
-        this.getCustomers = function (aUser) {
-//            P.Logger.info(aCustomer);
-//            if (aCustomer)
-//                return customers[aCustomer];
-//            else
-//                return customers;
-            if (aUser){
-                model.qUserByEMail.params.email = aUser;
-                model.requery(function(){
-                    P.Logger.info(model.qUserByEMail);
-                });
-            }
+        this.getCustomers = function (aUser, aOnSuccess) {
+//            if (aUser){
+            model.qUserByEMail.params.email = aUser;
+            model.requery(function () {
+                P.Logger.info(model.qUserByEMail);
+                var user = {"userExist":false};
+                if (model.qUserByEMail.length>0){
+                    user.userExist = true;
+                }
+                    aOnSuccess(user);
+            });
+//            }
         };
 
         /**
