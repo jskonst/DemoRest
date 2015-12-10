@@ -15,12 +15,9 @@ define(['forms', 'ui'], function (Forms, Ui, ModuleName) {
         function onParseEmail(event) {
             var value = event.source.text;
             var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-//            value = value.replace(/\s/gi, '');
-//            value = value.split(',');
             if (re.test(value)) {
                 event.source.background = null;
-
+                event.source.toolTipText = '';
                 return value;
             } else {
                 event.source.background = P.Color.PINK;
@@ -28,7 +25,7 @@ define(['forms', 'ui'], function (Forms, Ui, ModuleName) {
                 return null;
             }
         }
-        
+
 
         function onFormatEmail(event) {
             return event.source.value !== null ? event.source.value : event.source.text;
@@ -42,12 +39,11 @@ define(['forms', 'ui'], function (Forms, Ui, ModuleName) {
             'email': ''
         };
 
-        function isUserExist(userMail) {
+        function isUserExist(userMail, aCallback) {
             var baseUrl = "http://" +
                     window.location.host +
                     window.location.pathname.substr(0, window.location.pathname.lastIndexOf("/"))
                     + "/application/";
-            P.Logger.info(baseUrl);
             var request = new XMLHttpRequest();
             request.open("GET", // За­прос ти­па HTTP GET
                     (baseUrl + "customers/" + userMail), true);
@@ -55,24 +51,27 @@ define(['forms', 'ui'], function (Forms, Ui, ModuleName) {
             request.onreadystatechange = function () {
                 if (request.readyState === request.DONE) {
                     if (request.status == 200) {
-                        P.Logger.info(request.responseText);
-                        P.Logger.info(request.responseType);
+                        aCallback(request.responseText);
                     } else {
                         alert(request.statusText);
                     }
                 }
             };
         }
-        
-
-
-        form.button.onActionPerformed = function () {
-            isUserExist('ohio');
-        };
-
 
         form.ffEmail.onValueChange = function (event) {
-            P.Logger.info(form.ffEmail.value);
+            if (form.ffEmail.value) {
+                isUserExist(form.ffEmail.value, function (aResult) {
+                    var result = JSON.parse(aResult);
+                    if (result.userExist) {
+                        event.source.background = P.Color.PINK;
+                        event.source.toolTipText = "Пользователь с таким E-mail существует";
+                    } else {
+                        event.source.background = null;
+                        event.source.toolTipText = '';
+                    }
+                });
+            }
         };
 
 
@@ -82,23 +81,35 @@ define(['forms', 'ui'], function (Forms, Ui, ModuleName) {
                     window.location.pathname.substr(0, window.location.pathname.lastIndexOf("/"))
                     + "/application/";
             var request = new XMLHttpRequest();
-            user.email = form.ffEmail.value;
-            var body = JSON.stringify(user);
+            if (form.ffEmail.value) {
+                user.email = form.ffEmail.value;
+                var body = JSON.stringify(user);
+                request.open("POST", (baseUrl + "customers"), true);
+                request.setRequestHeader('Content-Type', 'application/json');
 
-            request.open("POST", (baseUrl + "customers"), true);
-            request.setRequestHeader('Content-Type', 'application/json');
-
-            request.onreadystatechange = function () {
-                if (request.readyState === request.DONE) {
-                    if (request.status == 200) {
-                        P.Logger.info(request.responseText);
-                        P.Logger.info(request.responseType);
-                    } else {
-                        alert(request.statusText);
+                request.onreadystatechange = function () {
+                    if (request.readyState === request.DONE) {
+                        if (request.status == 200) {
+                            var user = JSON.parse(request.responseText);
+                            if (user.userExist){
+                                form.ffEmail.background = P.Color.PINK;
+                                form.ffEmail.toolTipText = "Пользователь с таким E-mail существует";
+                                return;
+                            }
+                            if (user.created){
+                                alert('Вы зарегистрированы');
+                            }else{
+                                alert('Проверьте введенные поля и повторите попытку');
+                            }
+                        } else {
+                            alert(request.statusText);
+                        }
                     }
-                }
-            };
-            request.send(body);
+                };
+                request.send(body);
+            }else{
+                alert('Check e-mail');
+            }
         };
 
     };
